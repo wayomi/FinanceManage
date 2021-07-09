@@ -1,0 +1,108 @@
+﻿
+@model FinanceManage.Models.Purchase
+
+<form method="post" asp-action="DeletePost">
+    <input asp-for="purchaseId" hidden />
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-black-50 pl-3">Delete Purchase</h2>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group row">
+
+                    <div class="col-1">
+                        <label asp-for="puchaseDate"></label>
+                    </div>
+                    <div class="col-3">
+                        <input asp-for="puchaseDate" type="date" disabled class="form-control" />
+                    </div>
+                    <div class="col-1">
+                        <label asp-for="InvoiceNo"> </label>
+                    </div>
+                    <div class="col-3">
+                        <input id="invoiceNo" type="text" disabled asp-for="InvoiceNo" class="form-control" />
+                    </div>
+                    <div class="col-1">
+                        <label asp-for="Name"></label>
+                    </div>
+                    <div class="col-3">
+                        <input type="text" asp-for="Name" disabled class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-1">
+                        <label asp-for="Amount"> </label>
+                    </div>
+                    <div class="col-3">
+                        <input id="amount" type="text" asp-for="Amount" disabled class="form-control" onkeyup="calculateTotal()" />
+                    </div>
+                    <div class="col-1">
+                        <label asp-for="vat"> </label>
+                    </div>
+                    <div class="col-3">
+                        <input id="vat" type="text" asp-for="vat" disabled class="form-control" onkeyup="calculateTotal()" />
+                    </div>
+                    <div class="col-1">
+                        <label asp-for="total"> </label>
+                    </div>
+                    <div class="col-3">
+                        <input id="total" type="text" asp-for="total" disabled  class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="firstPayment"></label>
+                    </div>
+                    <div class="col-3">
+                        <input id="firstPayment" type="text" asp-for="firstPayment" disabled class="form-control" onkeyup="calculateRemain()" />
+                    </div>
+                    <div class="col-2">
+                        <label asp-for="firstPaidDate"> </label>
+                    </div>
+                    <div class="col-3">
+                        <input id="firstPaidDate" type="date" disabled asp-for="firstPaidDate" class="form-control" />
+                    </div>
+                </div>                
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="secondPayment"> </label>
+                    </div>
+                    <div class="col-3">
+                        <input id="secondPayment" disabled asp-for="secondPayment" class="form-control" />
+                    </div>
+                    <div class="col-2">
+                        <label asp-for="secondPaidDate"></label>
+                    </div>
+                    <div class="col-3">
+                        <input id="secondPaidDate" disabled type="date" value="0" asp-for="secondPaidDate" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+
+                    <div class="col-2">
+                        <label asp-for="paymentType"></label>
+                    </div>
+                    <div class="col-3">
+                        <input type="text" class="form-control" disabled id="paymentType" asp-for="paymentType" />                            
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-2 row">
+                        <div class="col-6">
+                            <input type="submit" class="btn btn-info w-75" value="Delete" />
+                        </div>
+                        <div class="col-6">
+                            <a asp-action="Index" class="btn btn-danger w-75">Back</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</form>

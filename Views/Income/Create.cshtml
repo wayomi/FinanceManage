@@ -1,0 +1,127 @@
+﻿
+@model FinanceManage.Models.Income
+
+<form method="post" asp-action="Create">
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-black-50 pl-3">Add Income</h2>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group row">
+
+                    <div class="col-1">
+                        <label asp-for="IncomeDate">Date</label>
+                    </div>
+                    <div class="col-3">
+                        <input asp-for="IncomeDate" type="date" class="form-control" />
+                    </div>
+                    <div class="col-1">
+                        <label asp-for="sales"> </label>
+                    </div>
+                    <div class="col-3">
+                        <input id="sales" type="text" asp-for="sales" class="form-control income" onkeyup="getTotal()" />
+                    </div>
+                    <div class="col-1">
+                        <label asp-for="other">Other</label>
+                    </div>
+                    <div class="col-3">
+                        <input id="other" type="text" asp-for="other" class="form-control income" onkeyup="getTotal()" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-1">
+                        <label asp-for="total">Total </label>
+                    </div>
+                    <div class="col-3">
+                        <input id="total" type="text"  asp-for="total" class="form-control income" />
+                    </div>
+                    <div class="col-1">
+                        <label asp-for="netSales"> </label>
+                    </div>
+                    <div class="col-3">
+                        <input id="netsales" type="text" asp-for="netSales" class="form-control" onkeyup="calculateGrossSales()" />
+                    </div>
+                    <div class="col-1">
+                        <label asp-for="vat">VAT</label>
+                    </div>
+                    <div class="col-3">
+                        <input id="vat" type="text" asp-for="vat" class="form-control" onkeyup="calculateGrossSales()" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-1">
+                        <label asp-for="grossSales"> </label>
+                    </div>
+                    <div class="col-3">
+                        <input id="grosssales" type="text" asp-for="grossSales" class="form-control" />
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-1">
+                        <label asp-for="cash">Cash </label>
+                    </div>
+                    <div class="col-3">
+                        <input asp-for="cash" name="Cash" class="form-control" />
+
+                    </div>
+                    <div class="col-1">
+                        <label asp-for="card">Card</label>
+                    </div>
+                    <div class="col-3">
+                        <input asp-for="card" name="Card" class="form-control" />
+
+                    </div>
+                    <div class="col-1">
+                        <label asp-for="credit">Credit</label>
+                    </div>
+                    <div class="col-3">
+                        <input asp-for="credit" name="Credit" class="form-control" />
+
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-2 row">
+                        <div class="col-6">
+                            <input type="submit" class="btn btn-info w-75" value="Create" />
+                        </div>
+                        <div class="col-6">
+                            <a asp-action="Index" class="btn btn-danger w-75">Back</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</form>
+
+@section scripts {
+    <script type="text/javascript">
+
+        //Return the Total of sales and other
+        function getTotal() {
+
+            var txtA = $('#sales');
+            var txtB = $('#other');
+            var txtResult = $('#total');
+
+            //txtResult.html(parseFloat(txtA.val()) + parseFloat(txtB.val()));
+            txtResult.val(parseFloat(txtA.val()) + parseFloat(txtB.val()));           
+        }
+        //Calculate Gross Sales of the Income
+        function calculateGrossSales() {
+            var val1 = $('#netsales');
+            var val2 = $('#vat');
+            var sal = $('#grosssales');
+
+            sal.val((parseFloat(val1.val()) * parseFloat(val2.val()) / 100) + parseFloat(val1.val()));
+        }
+
+    </script>
+}
