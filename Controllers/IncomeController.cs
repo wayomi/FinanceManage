@@ -12,6 +12,8 @@ namespace FinanceManage.Controllers
     {
         private readonly ApplicataionDbContext _db;
 
+        public object DateManager { get; private set; }
+
         public IncomeController (ApplicataionDbContext db)
         {
             _db = db;
@@ -22,7 +24,7 @@ namespace FinanceManage.Controllers
             return View(objList);
             
         }
-
+        
         //Get Create
         public IActionResult Create()
         {
@@ -103,6 +105,5 @@ namespace FinanceManage.Controllers
 
         }
 
-       
     }
 }

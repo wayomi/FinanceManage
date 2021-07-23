@@ -21,8 +21,9 @@ namespace FinanceManage.Controllers
             {
                 IEnumerable<Expense> objList = _db.Expenses;
                 return View(objList);
-            
-            }
+                
+
+        }
 
             //Get Create
             public IActionResult Create()
@@ -62,9 +63,9 @@ namespace FinanceManage.Controllers
             //Post Delete
             [HttpPost]
             [ValidateAntiForgeryToken]
-            public IActionResult DeletePost(int? id)
+            public IActionResult DeletePost(int? ExpenseId)
             {
-                var obj = _db.Expenses.Find(id);
+                var obj = _db.Expenses.Find(ExpenseId);
                 if (obj == null)
                 {
                     return NotFound();

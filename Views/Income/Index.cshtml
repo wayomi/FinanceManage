@@ -7,14 +7,37 @@
             <h2 class="text-primary">FinanaceManager - Income Records</h2>
         </div>
         <div class="col-6 text-right">
-            <a asp-controller="Income" asp-action="Create" class="btn btn-primary">Create New Income</a> 
+            <a asp-controller="Income" asp-action="Create" class="btn btn-primary">Create New Income</a>
         </div>
     </div>
     <br />
 
-    @if(Model.Count() > 0)
-    { 
-        <table class="table table-bordered table-striped" style="width:100%">
+    <div class="form-group row">
+        <div class="col-1">
+            <label>From</label>
+        </div>
+        <div class="col-3">
+            <input id=" fromDate" type="date" class="form-control" />
+        </div>
+        <div class="col-1">
+            <label>To</label>
+        </div>
+        <div class="col-3">
+            <input id="toDate" type="date" class="form-control" />
+        </div>
+        <div class="col-3">
+            <button class="btn btn-dark" onclick="getRangeData('fromDate','toDate')">Generate Data</button>
+        </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="ExcelReport('IncomeTable', 'data')"> Import to Excel</button>
+    <br />
+    <br />
+    <br />
+
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped" id="IncomeTable" style="width:100%">
             <thead>
                 <tr>
                     <th>
@@ -54,10 +77,10 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach(var income in Model)
+                @foreach (var income in Model)
                 {
                     <tr>
-                       
+
                         <td width="10%">@income.IncomeDate</td>
                         <td width="10%">@income.sales</td>
                         <td width="10%">@income.other</td>
@@ -71,22 +94,50 @@
                         <td width="10%">
                             <div class="w-100 btn-group" role="group">
                                 <a asp-controller="Income" asp-action="Update" asp-route-Id="@income.incomeId" class="btn btn-primary mx-1">Update</a>
-                                <a asp-controller="Income" asp-action="Delete" asp-route-Id="@income.incomeId"  class="btn btn-danger mx-1">Delete</a>
+                                <a asp-controller="Income" asp-action="Delete" asp-route-Id="@income.incomeId" class="btn btn-danger mx-1">Delete</a>
                             </div>
                         </td>
-                        
+
                     </tr>
                 }
             </tbody>
         </table>
     }
     else
-            {
-                <p>No Income Created Yet</p>
-            }
-  
+    {
+        <p>No Income Created Yet</p>
+    }
+
 
 </div>
+
+<script src="~/js/FileSaver.js"></script>
+<script type="text/javascript">
+    function ExcelReport(id, name) {
+        var tab_text = '<html xmlns: x="urn:schemas-microsoft-com:office-excel">';
+        tab_text = tab_text + '<head><xml><x: ExcelWorkBook><x: ExcelWorkSheets><x: ExcelWorkSheet>';
+        tab_text = tab_text + '<x: Name> Test Sheet </x: Name>';
+        tab_text = tab_text + '<x: WorkSheetOptions><x: Panes></x: Panes> </x: WorkSheetOptions></x: ExcelWorkSheet>';
+        tab_text = tab_text + '</x: ExcelWorkSheets></x: ExcelWorkBook></x:xml></head><body>';
+        tab_text = tab_text + "<table border='1px' style='color-black'>";
+
+        var exportTable = $('#' + id).clone();
+        exportTable.find('th').last().remove();
+        exportTable.find('input').each(function (index, elem) { $(elem).remove(); });
+        exportTable.find('a').each(function (index, elem) { $(elem).remove(); });
+
+        tab_text = tab_text + exportTable.html();
+        tab_text = tab_text + '</table></body></html>';
+        var fileName = 'Income' + '.xlsx';
+
+        var blob = new Blob([tab_text], { type: "application/vnd.ms-excel;charset=utf-8" })
+        window.saveAs(blob, fileName);
+    }
+
+    function getRangeData(start, end) {
+
+    }
+</script>
 
   
 

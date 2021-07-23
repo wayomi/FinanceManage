@@ -22,7 +22,7 @@ namespace FinanceManage.Controllers
         public IActionResult Index()
         {
             IEnumerable<Purchase> objList = _db.Purchases;
-            ViewBag.SupplierName = new SelectList(_db.Items,"ItemName");
+            //ViewBag.SupplierName = new SelectList(_db.Items,"ItemName");
             return View(objList);
         }
 

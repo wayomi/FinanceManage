@@ -85,8 +85,8 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-8 offset-2 row">
-                        <div class="col-6">
-                            <input type="submit" class="btn btn-info w-75" value="Create" />
+                        <div class="col-6">                            
+                                <input role="alert" id="creteabutton" type="submit" class="btn btn-info w-75" value="Create" />                                                     
                         </div>
                         <div class="col-6">
                             <a asp-action="Index" class="btn btn-danger w-75">Back</a>
@@ -122,6 +122,8 @@
 
             sal.val((parseFloat(val1.val()) * parseFloat(val2.val()) / 100) + parseFloat(val1.val()));
         }
+
+        $('#creteabutton').alert()
 
     </script>
 }

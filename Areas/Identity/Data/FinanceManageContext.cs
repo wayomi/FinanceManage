@@ -1,25 +1,20 @@
-﻿using FinanceManage.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FinanceManage.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinanceManage.Data
 {
-    public class ApplicataionDbContext :  DbContext
+    public class ApplicationDbContext : IdentityDbContext<FinanceManageUser>
     {
-        public ApplicataionDbContext(DbContextOptions<ApplicataionDbContext> options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
         {
-
         }
-
-        public DbSet<Item> Items { get; set; }
-        public DbSet<Expense> Expenses { get; set; }
-        public DbSet<Income> Incomes { get; set; }
-        public DbSet<Purchase> Purchases { get; set; }
-
-       // public DbSet<FinanceManageContext> identities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -28,6 +23,5 @@ namespace FinanceManage.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
-
     }
 }

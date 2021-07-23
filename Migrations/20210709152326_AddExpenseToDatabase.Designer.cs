@@ -4,14 +4,16 @@ using FinanceManage.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FinanceManage.Migrations
 {
     [DbContext(typeof(ApplicataionDbContext))]
-    partial class ApplicataionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210709152326_AddExpenseToDatabase")]
+    partial class AddExpenseToDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

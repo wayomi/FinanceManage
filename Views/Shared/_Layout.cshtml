@@ -6,6 +6,12 @@
     <title>@ViewData["Title"] - FinanceManage</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" 
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" 
+          crossorigin="anonymous" />
 </head>
 <body>
     <header>
@@ -17,19 +23,21 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">                        
+                    <ul class="navbar-nav flex-grow-1">
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Item" asp-action="Index">Suppliers</a>
+                            <a class="nav-link " style="color: darkblue; font-family: 'Arial Nova'; font-size: larger" asp-area="" asp-controller="Purchase" asp-action="Index">PURCHASE</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Purchase" asp-action="Index">Purchases</a>
+                            <a style="color: darkblue; font-family: 'Arial Nova'; font-size: larger " class="nav-link " asp-area="" asp-controller="Expense" asp-action="Index">EXPENSE</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Expense" asp-action="Index">Expenses</a>
+                            <a class="nav-link" style="color: darkblue; font-family: 'Arial Nova'; font-size:larger" asp-area="" asp-controller="Income" asp-action="Index">INCOME</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Income" asp-action="Index">Income</a>
+                            <a class="nav-link" style="color: darkblue; font-family: 'Arial Nova'; font-display: block; font-size: larger " asp-area="" asp-controller="Item" asp-action="Index">SUPPLIER</a>
                         </li>
+                        <partial name="_LoginPartial.cshtml" />
                     </ul>
                 </div>
             </div>

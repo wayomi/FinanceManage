@@ -3,59 +3,125 @@
 
 <div class="container p-3">
     <div class="row pt-4">
-        <div class="col-6">
-            <h2 class="text-primary">Expenses List</h2>
+        <div class="col-8">
+            <h2 class="text-primary">FinanaceManager - Expense Records</h2>
         </div>
-        <div class="col-6 text-right">
-            <a asp-controller="Expense" asp-action="Create" class="btn btn-primary">Create New Expense</a> 
+        <div class="col-4 text-right">
+            <a asp-controller="Expense" asp-action="Create" class="btn btn-primary">Create New Expense</a>
         </div>
     </div>
     <br />
 
-    @if(Model.Count() > 0)
-    { 
-        <table class="table table-bordered table-striped" style="width:100%">
+    <button class="btn btn-primary" onclick="ExcelReport('expenseTable', 'data')"> Import to Excel</button>
+    <br />
+    <br />
+    <br />
+
+    @if (Model.Count() > 0)
+    {
+        <table  id="expenseTable" class="table table-bordered table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th>
-                        Expense 
+                        Date
                     </th>
                     <th>
-                        Amount
+                        Invoice No
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Amount (£)
+                    </th>
+                    <th>
+                        VAT (%)
+                    </th>
+                    <th>
+                        Total (£)
+                    </th>
+                    <th>
+                        First Payment (£)
+                    </th>
+                    <th>
+                        Payment Date (1st)
+                    </th>
+                    <th>
+                        Second Payment (£)
+                    </th>
+                    <th>
+                        Payment Date (2nd)
+                    </th>
+                    <th>
+                        Payment Type
                     </th>
                     <th>
                         Actions
                     </th>
-                    
+
                 </tr>
             </thead>
             <tbody>
-                @foreach(var expense in Model)
+                @foreach (var expense in Model)
                 {
                     <tr>
-                       
-                        <td width="35%">@expense.ExpenseName</td>
-                        <td width="35%">@expense.Amount</td>
-                        <td width="30%">
+
+                        <td width="10%">@expense.expenseDate</td>
+                        <td width="10%">@expense.InvoiceNo</td>
+                        <td width="10%">@expense.Name</td>
+                        <td width="10%">@expense.Amount</td>
+                        <td width="10%">@expense.vat</td>
+                        <td width="10%">@expense.total</td>
+                        <td width="10%">@expense.firstPayment</td>
+                        <td width="10%">@expense.firstPaidDate</td>
+                        <td width="10%">@expense.secondPayment</td>
+                        <td width="10%">@expense.secondPaidDate</td>
+                        <td width="10%">@expense.paymentType</td>
+                        <td width="10%">
                             <div class="w-100 btn-group" role="group">
-                                <a asp-controller="Expense" asp-action="Update" asp-route-Id="@expense.Id" class="btn btn-primary mx-1">Update</a>
-                                <a asp-controller="Expense" asp-action="Delete" asp-route-Id="@expense.Id"  class="btn btn-danger mx-1">Delete</a>
+                                <a asp-controller="Expense" asp-action="Update" asp-route-Id="@expense.ExpenseId" class="btn btn-primary mx-1">Update</a>
+                                <a asp-controller="Expense" asp-action="Delete" asp-route-Id="@expense.ExpenseId" class="btn btn-danger mx-1">Delete</a>
                             </div>
                         </td>
-                        
+
                     </tr>
                 }
             </tbody>
         </table>
     }
     else
-            {
-                <p>No Items Created Yet</p>
-            }
-  
+    {
+        <p>No Expenses Created Yet</p>
+    }
+
 
 </div>
 
-  
+
+<script src="~/js/FileSaver.js"></script>
+<script type="text/javascript">
+    function ExcelReport(id, name) {
+        var tab_text = '<html xmlns: x="urn:schemas-microsoft-com:office-excel">';
+        tab_text = tab_text + '<head><xml><x: ExcelWorkBook><x: ExcelWorkSheets><x: ExcelWorkSheet>';
+        tab_text = tab_text + '<x: Name> Test Sheet </x: Name>';
+        tab_text = tab_text + '<x: WorkSheetOptions><x: Panes></x: Panes> </x: WorkSheetOptions></x: ExcelWorkSheet>';
+        tab_text = tab_text + '</x: ExcelWorkSheets></x: ExcelWorkBook></x:xml></head><body>';
+        tab_text = tab_text + "<table border='1px' style='color-black'>";
+
+        var exportTable = $('#' + id).clone();
+        exportTable.find('th').last().remove();
+        exportTable.find('input').each(function (index, elem) { $(elem).remove(); });
+        exportTable.find('a').each(function (index, elem) { $(elem).remove(); });
+
+        tab_text = tab_text + exportTable.html();
+        tab_text = tab_text + '</table></body></html>';
+        var fileName = 'Expense' + '.xlsx';
+
+        var blob = new Blob([tab_text], { type: "application/vnd.ms-excel;charset=utf-8" })
+        window.saveAs(blob, fileName);
+    }
+
+</script>
+
 
 
